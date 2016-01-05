@@ -91,6 +91,7 @@
             this.ClientSize = new System.Drawing.Size(1024, 501);
             this.Controls.Add(this.splitContainerControl1);
             this.Name = "frmPreview";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmPreview";
             this.Load += new System.EventHandler(this.frmPreview_Load);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerControl1)).EndInit();

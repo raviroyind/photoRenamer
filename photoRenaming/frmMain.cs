@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;using System.Text;
+using System.Linq;
 using System.Windows.Forms;
+using DevExpress.XtraBars.Ribbon;
 using photoRenaming.Core;
 
 namespace photoRenaming
 {
-    public partial class FrmMain : DevExpress.XtraBars.Ribbon.RibbonForm
+    public partial class FrmMain : RibbonForm
     {
+        public List<FileList> fileList;
         public FrmMain()
         {
             InitializeComponent();
@@ -35,7 +34,7 @@ namespace photoRenaming
 
         private void btnSourceFolder_Click(object sender, EventArgs e)
         {
-            var fileList = new List<FileList>();
+            fileList = new List<FileList>();
             using (var dialouge = new FolderBrowserDialog())
             {
                 if (dialouge.ShowDialog() == DialogResult.OK)
@@ -51,14 +50,32 @@ namespace photoRenaming
                         Name = file.Name, Attributes = file.Attributes, FullPath = file.FullName,Rating = GetRating(file),
                     }));
 
-                    if (fileList.Count > 0){
-                        var frmPreview = new frmPreview(fileList);
-                        frmPreview.Show();
-                        frmPreview.BringToFront();
-                        frmPreview.Focus();
+                    if (fileList.Count > 0)
+                    { 
+                        using (var form = new frmPreview(fileList,toggleSwitchLogic.IsOn))
+                        {
+                            form.ShowDialog(this);
+                        }
                     }
                 }
             }
+        }
+
+        private void btnDestinationFolder_Click(object sender, EventArgs e)
+        {
+            using (var dialouge = new FolderBrowserDialog())
+            {
+                if (dialouge.ShowDialog() == DialogResult.OK)
+                {
+                    txtDestination.EditValue = dialouge.SelectedPath;
+                }
+            }
+        }
+
+
+        public void SendFilesToParent(List<FileList> fileLists)
+        {
+            this.fileList = fileLists;
         }
 
         private static string GetRating(FileSystemInfo file)
@@ -71,10 +88,42 @@ namespace photoRenaming
                 rating = BitConverter.ToInt16(propItem.Value, 0).ToString();
             }
             catch (Exception)
-            {
-                 
-            }
+            { }
             return rating;
         }
+
+        private void btnProcess_Click(object sender, EventArgs e)
+        {
+            List<FileList> bucketList=new List<FileList>();
+
+            foreach (var file in fileList)
+            {
+                bucketList.Add(file);
+
+                if (toggleSwitchLogic.IsOn &&  !string.IsNullOrEmpty(file.Rating))
+                {
+                    CreateOutput(bucketList, txtDestination.EditValue.ToString());
+                    bucketList.Clear();
+                }
+                else if (!toggleSwitchLogic.IsOn && file.Attributes.ToString().Equals("ReadOnly, Archive"))
+                {
+                    CreateOutput(bucketList, txtDestination.EditValue.ToString());
+                    bucketList.Clear();
+                }
+            }
+        }
+        private static void CreateOutput(List<FileList> bucketList, string destinationFolder)
+        {
+            foreach (var file in bucketList)
+            {
+                using (var bmp = new Bitmap(file.FullPath))
+                {
+                    bmp.Save(destinationFolder + "\\" +Path.GetFileName(file.Name));
+                    bmp.Dispose();
+                }
+            }
+        }
+
+       
     }
 }
