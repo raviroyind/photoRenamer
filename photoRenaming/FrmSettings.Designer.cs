@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSettings));
-            DevExpress.Utils.SuperToolTip superToolTip8 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem8 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip9 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem9 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip7 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem7 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem4 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip5 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem5 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.btnProcess = new DevExpress.XtraBars.BarButtonItem();
@@ -45,12 +45,12 @@
             this.barStaticItem2 = new DevExpress.XtraBars.BarStaticItem();
             this.barEditItem2 = new DevExpress.XtraBars.BarEditItem();
             this.barEditItem3 = new DevExpress.XtraBars.BarEditItem();
-            this.toggleSwitchLogic = new DevExpress.XtraBars.BarEditItem();
-            this.repositoryItemToggleSwitch1 = new DevExpress.XtraEditors.Repository.RepositoryItemToggleSwitch();
-            this.barCheckItem1 = new DevExpress.XtraBars.BarCheckItem();
             this.chkUseRatings = new DevExpress.XtraBars.BarCheckItem();
-            this.barEditItem4 = new DevExpress.XtraBars.BarEditItem();
+            this.txtPlayerSequence = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.toggleSwitchLogic = new DevExpress.XtraBars.BarToggleSwitchItem();
+            this.barToggle = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemToggleSwitch1 = new DevExpress.XtraEditors.Repository.RepositoryItemToggleSwitch();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -58,7 +58,7 @@
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.panelSettings = new System.Windows.Forms.Panel();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
+            this.chkOpenWhenDone = new DevExpress.XtraEditors.CheckEdit();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.txtDestination = new DevExpress.XtraEditors.TextEdit();
             this.btnDestinationFolder = new DevExpress.XtraEditors.SimpleButton();
@@ -71,15 +71,13 @@
             this.btnSourceFolder = new DevExpress.XtraEditors.SimpleButton();
             this.gc = new DevExpress.XtraBars.Ribbon.GalleryControl();
             this.galleryControlClient1 = new DevExpress.XtraBars.Ribbon.GalleryControlClient();
-            this.CheckWater1 = new DevExpress.XtraBars.BarToggleSwitchItem();
-            this.lblStatus = new DevExpress.XtraBars.BarStaticItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemToggleSwitch1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemToggleSwitch1)).BeginInit();
             this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkOpenWhenDone.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDestination.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
@@ -104,19 +102,18 @@
             this.barStaticItem2,
             this.barEditItem2,
             this.barEditItem3,
-            this.toggleSwitchLogic,
-            this.barCheckItem1,
             this.chkUseRatings,
-            this.barEditItem4,
-            this.lblStatus});
+            this.txtPlayerSequence,
+            this.toggleSwitchLogic,
+            this.barToggle});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 19;
+            this.ribbon.MaxItemId = 21;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
             this.ribbon.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemToggleSwitch1,
-            this.repositoryItemTextEdit1});
+            this.repositoryItemTextEdit1,
+            this.repositoryItemToggleSwitch1});
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
             this.ribbon.Size = new System.Drawing.Size(1257, 155);
             this.ribbon.StatusBar = this.ribbonStatusBar;
@@ -163,12 +160,12 @@
             this.barStaticItem1.Caption = "Player Sequence";
             this.barStaticItem1.Id = 5;
             this.barStaticItem1.Name = "barStaticItem1";
-            toolTipItem8.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
-            toolTipItem8.Appearance.Options.UseImage = true;
-            toolTipItem8.Image = ((System.Drawing.Image)(resources.GetObject("toolTipItem8.Image")));
-            toolTipItem8.Text = "Enter comma separated player sequence.";
-            superToolTip8.Items.Add(toolTipItem8);
-            this.barStaticItem1.SuperTip = superToolTip8;
+            toolTipItem4.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
+            toolTipItem4.Appearance.Options.UseImage = true;
+            toolTipItem4.Image = ((System.Drawing.Image)(resources.GetObject("toolTipItem4.Image")));
+            toolTipItem4.Text = "Enter comma separated player sequence.";
+            superToolTip4.Items.Add(toolTipItem4);
+            this.barStaticItem1.SuperTip = superToolTip4;
             this.barStaticItem1.TextAlignment = System.Drawing.StringAlignment.Near;
             // 
             // barEditItem1
@@ -178,9 +175,9 @@
             this.barEditItem1.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.barEditItem1.ItemAppearance.Normal.Options.UseFont = true;
             this.barEditItem1.Name = "barEditItem1";
-            toolTipItem9.Text = "Enter comma separated player sequence.";
-            superToolTip9.Items.Add(toolTipItem9);
-            this.barEditItem1.SuperTip = superToolTip9;
+            toolTipItem5.Text = "Enter comma separated player sequence.";
+            superToolTip5.Items.Add(toolTipItem5);
+            this.barEditItem1.SuperTip = superToolTip5;
             this.barEditItem1.Width = 250;
             // 
             // barStaticItem2
@@ -191,9 +188,9 @@
             this.barStaticItem2.ItemAppearance.Normal.Options.UseFont = true;
             this.barStaticItem2.Name = "barStaticItem2";
             this.barStaticItem2.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            toolTipItem7.Text = "Enter comman separated player sequence.";
-            superToolTip7.Items.Add(toolTipItem7);
-            this.barStaticItem2.SuperTip = superToolTip7;
+            toolTipItem2.Text = "Enter comman separated player sequence.";
+            superToolTip2.Items.Add(toolTipItem2);
+            this.barStaticItem2.SuperTip = superToolTip2;
             this.barStaticItem2.TextAlignment = System.Drawing.StringAlignment.Near;
             // 
             // barEditItem2
@@ -211,29 +208,6 @@
             this.barEditItem3.Name = "barEditItem3";
             this.barEditItem3.Width = 77;
             // 
-            // toggleSwitchLogic
-            // 
-            this.toggleSwitchLogic.Caption = "Logic";
-            this.toggleSwitchLogic.Edit = this.repositoryItemToggleSwitch1;
-            this.toggleSwitchLogic.EditHeight = 26;
-            this.toggleSwitchLogic.Id = 14;
-            this.toggleSwitchLogic.Name = "toggleSwitchLogic";
-            this.toggleSwitchLogic.Width = 150;
-            // 
-            // repositoryItemToggleSwitch1
-            // 
-            this.repositoryItemToggleSwitch1.AutoHeight = false;
-            this.repositoryItemToggleSwitch1.GlyphAlignment = DevExpress.Utils.HorzAlignment.Default;
-            this.repositoryItemToggleSwitch1.Name = "repositoryItemToggleSwitch1";
-            this.repositoryItemToggleSwitch1.OffText = "Use Lock";
-            this.repositoryItemToggleSwitch1.OnText = "Use Ratings";
-            // 
-            // barCheckItem1
-            // 
-            this.barCheckItem1.Caption = "barCheckItem1";
-            this.barCheckItem1.Id = 15;
-            this.barCheckItem1.Name = "barCheckItem1";
-            // 
             // chkUseRatings
             // 
             this.chkUseRatings.Caption = "Use Ratings";
@@ -247,21 +221,47 @@
             this.chkUseRatings.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.chkUseRatings.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.chkUseRatings_CheckedChanged);
             // 
-            // barEditItem4
+            // txtPlayerSequence
             // 
-            this.barEditItem4.Edit = this.repositoryItemTextEdit1;
-            this.barEditItem4.Id = 17;
-            this.barEditItem4.ItemAppearance.Hovered.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.barEditItem4.ItemAppearance.Hovered.Options.UseFont = true;
-            this.barEditItem4.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.barEditItem4.ItemAppearance.Normal.Options.UseFont = true;
-            this.barEditItem4.Name = "barEditItem4";
-            this.barEditItem4.Width = 200;
+            this.txtPlayerSequence.Edit = this.repositoryItemTextEdit1;
+            this.txtPlayerSequence.Id = 17;
+            this.txtPlayerSequence.ItemAppearance.Hovered.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.txtPlayerSequence.ItemAppearance.Hovered.Options.UseFont = true;
+            this.txtPlayerSequence.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.txtPlayerSequence.ItemAppearance.Normal.Options.UseFont = true;
+            this.txtPlayerSequence.Name = "txtPlayerSequence";
+            this.txtPlayerSequence.Width = 550;
             // 
             // repositoryItemTextEdit1
             // 
             this.repositoryItemTextEdit1.AutoHeight = false;
             this.repositoryItemTextEdit1.Name = "repositoryItemTextEdit1";
+            // 
+            // toggleSwitchLogic
+            // 
+            this.toggleSwitchLogic.Caption = "Logic";
+            this.toggleSwitchLogic.Id = 19;
+            this.toggleSwitchLogic.Name = "toggleSwitchLogic";
+            // 
+            // barToggle
+            // 
+            this.barToggle.Caption = "Logic";
+            this.barToggle.Edit = this.repositoryItemToggleSwitch1;
+            this.barToggle.EditHeight = 26;
+            this.barToggle.Id = 20;
+            this.barToggle.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.barToggle.ItemAppearance.Normal.Options.UseFont = true;
+            this.barToggle.Name = "barToggle";
+            this.barToggle.Width = 130;
+            // 
+            // repositoryItemToggleSwitch1
+            // 
+            this.repositoryItemToggleSwitch1.AutoHeight = false;
+            this.repositoryItemToggleSwitch1.GlyphAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.repositoryItemToggleSwitch1.Name = "repositoryItemToggleSwitch1";
+            this.repositoryItemToggleSwitch1.OffText = "Use Lock";
+            this.repositoryItemToggleSwitch1.OnText = "Use Ratings";
+            this.repositoryItemToggleSwitch1.EditValueChanged += new System.EventHandler(this.repositoryItemToggleSwitch1_EditValueChanged);
             // 
             // ribbonPage1
             // 
@@ -286,14 +286,14 @@
             // 
             this.ribbonPageGroup2.ItemLinks.Add(this.barStaticItem2);
             this.ribbonPageGroup2.ItemLinks.Add(this.barEditItem1);
-            this.ribbonPageGroup2.ItemLinks.Add(this.barEditItem4, true);
+            this.ribbonPageGroup2.ItemLinks.Add(this.txtPlayerSequence);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.ShowCaptionButton = false;
             // 
             // ribbonPageGroup3
             // 
             this.ribbonPageGroup3.ItemLinks.Add(this.barEditItem3);
-            this.ribbonPageGroup3.ItemLinks.Add(this.chkUseRatings);
+            this.ribbonPageGroup3.ItemLinks.Add(this.barToggle);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.ShowCaptionButton = false;
             // 
@@ -319,7 +319,7 @@
             // 
             this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.groupControl2.Controls.Add(this.checkEdit1);
+            this.groupControl2.Controls.Add(this.chkOpenWhenDone);
             this.groupControl2.Controls.Add(this.labelControl4);
             this.groupControl2.Controls.Add(this.txtDestination);
             this.groupControl2.Controls.Add(this.btnDestinationFolder);
@@ -329,14 +329,14 @@
             this.groupControl2.TabIndex = 16;
             this.groupControl2.Text = "Destination";
             // 
-            // checkEdit1
+            // chkOpenWhenDone
             // 
-            this.checkEdit1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.checkEdit1.Location = new System.Drawing.Point(398, 94);
-            this.checkEdit1.Name = "checkEdit1";
-            this.checkEdit1.Properties.Caption = "Open when done.";
-            this.checkEdit1.Size = new System.Drawing.Size(125, 20);
-            this.checkEdit1.TabIndex = 4;
+            this.chkOpenWhenDone.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.chkOpenWhenDone.Location = new System.Drawing.Point(398, 109);
+            this.chkOpenWhenDone.Name = "chkOpenWhenDone";
+            this.chkOpenWhenDone.Properties.Caption = "Open when done.";
+            this.chkOpenWhenDone.Size = new System.Drawing.Size(125, 20);
+            this.chkOpenWhenDone.TabIndex = 4;
             // 
             // labelControl4
             // 
@@ -485,20 +485,6 @@
             this.galleryControlClient1.Location = new System.Drawing.Point(2, 2);
             this.galleryControlClient1.Size = new System.Drawing.Size(1236, 551);
             // 
-            // CheckWater1
-            // 
-            this.CheckWater1.Caption = "Add Watermark";
-            this.CheckWater1.Id = 24;
-            this.CheckWater1.Name = "CheckWater1";
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.Caption = "Click on the images to status.";
-            this.lblStatus.Id = 18;
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.TextAlignment = System.Drawing.StringAlignment.Near;
-            this.lblStatus.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            // 
             // FrmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -513,13 +499,13 @@
             this.StatusBar = this.ribbonStatusBar;
             this.Load += new System.EventHandler(this.FrmSettings_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemToggleSwitch1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemToggleSwitch1)).EndInit();
             this.panelSettings.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
             this.groupControl2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkOpenWhenDone.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDestination.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
@@ -548,7 +534,7 @@
         private DevExpress.XtraEditors.TextEdit txtSourcePath;
         private DevExpress.XtraEditors.SimpleButton btnSourceFolder;
         private DevExpress.XtraEditors.GroupControl groupControl2;
-        private DevExpress.XtraEditors.CheckEdit checkEdit1;
+        private DevExpress.XtraEditors.CheckEdit chkOpenWhenDone;
         private DevExpress.XtraEditors.LabelControl labelControl4;
         private DevExpress.XtraEditors.TextEdit txtDestination;
         private DevExpress.XtraEditors.SimpleButton btnDestinationFolder;
@@ -571,14 +557,17 @@
         
         
         private DevExpress.XtraBars.BarEditItem barEditItem3;
-        private DevExpress.XtraBars.BarEditItem toggleSwitchLogic;
-        private DevExpress.XtraEditors.Repository.RepositoryItemToggleSwitch repositoryItemToggleSwitch1;
-        private DevExpress.XtraBars.BarCheckItem barCheckItem1;
+       // private DevExpress.XtraBars.BarEditItem toggleSwitchLogic;
+        //private DevExpress.XtraEditors.Repository.RepositoryItemToggleSwitch repositoryItemToggleSwitch1;
+       // private DevExpress.XtraBars.BarCheckItem barCheckItem1;
         private DevExpress.XtraBars.BarCheckItem chkUseRatings;
-        private DevExpress.XtraBars.BarToggleSwitchItem CheckWater1;
-        private DevExpress.XtraBars.BarEditItem barEditItem4;
+        //private DevExpress.XtraBars.BarToggleSwitchItem CheckWater1;
+        private DevExpress.XtraBars.BarEditItem txtPlayerSequence;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
-        private DevExpress.XtraBars.BarStaticItem lblStatus;
+        private DevExpress.XtraBars.BarToggleSwitchItem toggleSwitchLogic;
+        private DevExpress.XtraBars.BarEditItem barToggle;
+        private DevExpress.XtraEditors.Repository.RepositoryItemToggleSwitch repositoryItemToggleSwitch1;
+        //private DevExpress.XtraBars.BarStaticItem lblStatus;
         
     }
 }

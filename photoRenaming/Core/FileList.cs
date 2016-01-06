@@ -2,7 +2,7 @@
 
 namespace photoRenaming.Core
 {
-    public class FileList
+    public class ImageFile
     {
         public string Name { get; set;}
         public string FullPath { get; set; }
