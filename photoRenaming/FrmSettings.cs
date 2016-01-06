@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using DevExpress.Data.Linq;
 using DevExpress.Utils.Drawing;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
@@ -23,7 +24,7 @@ namespace photoRenaming
         public FrmSettings()
         {
             InitializeComponent();
-            btnBack.Visibility=BarItemVisibility.Never;
+            this.Icon = Properties.Resources.sorter_logo;btnBack.Visibility=BarItemVisibility.Never;
             btnPreview.Visibility = BarItemVisibility.Never;
             
         }
@@ -133,8 +134,8 @@ namespace photoRenaming
             gc.Gallery.ItemImageLayout = ImageLayoutMode.ZoomInside;
             gc.Gallery.ImageSize = new Size(120, 90);
             gc.Gallery.ShowItemText = true;
-            groupControl1.Visible = false;
-            groupControl2.Visible = false;
+            groupControlSource.Visible = false;
+            groupControlDestination.Visible = false;
            // UseRatings = chkUseRatings.Checked;
             var group1 = new GalleryItemGroup { Caption = @"Click on Images to toggle current lock/ ratings." };
             gc.Gallery.Groups.Clear();
@@ -293,26 +294,13 @@ namespace photoRenaming
         private void btnBack_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             gc.Visible = false;
-            groupControl1.Visible = true;
-            groupControl2.Visible = true;
+            groupControlSource.Visible = true;
+            groupControlDestination.Visible = true;
             btnPreview.Visibility = txtSourcePath.EditValue != null ? BarItemVisibility.Always : BarItemVisibility.Never;
            
         }
         private void btnPreview_ItemClick(object sender, ItemClickEventArgs e)
         {
-            //var dInfo = new DirectoryInfo(txtSourcePath.EditValue.ToString());
-
-            //var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-
-            //FileList.Clear();
-
-            //FileList.AddRange(fInfo.Select(file => new ImageFile
-            //{
-            //    Name = file.Name,
-            //    Attributes = file.Attributes,
-            //    FullPath = file.FullName,
-            //    Rating = GetRating(file),
-            //}));
             if (FileList.Count > 0)
             {
                 LoadImages();
@@ -322,8 +310,30 @@ namespace photoRenaming
         private void txtSourcePath_TextChanged(object sender, EventArgs e)
         {
             if(txtSourcePath.EditValue==null)
-                btnPreview.Visibility=BarItemVisibility.Never;else if (!string.IsNullOrEmpty(Convert.ToString(txtSourcePath.EditValue)))
+                btnPreview.Visibility=BarItemVisibility.Never;
+            else if (!string.IsNullOrEmpty(Convert.ToString(txtSourcePath.EditValue)))
+            {
+                FileList = new List<ImageFile>();
+                  
+                var dInfo = new DirectoryInfo(txtSourcePath.EditValue.ToString());
+
+                var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+
+                FileList.AddRange(fInfo.Select(file => new ImageFile
+                {
+                    Name = file.Name,
+                    Attributes = file.Attributes,
+                    FullPath = file.FullName,
+                    Rating = GetRating(file),
+                }));
+
+                if (FileList.Count > 0)
+                {
+                    LoadImages();
+                }
+                     
                 btnPreview.Visibility = BarItemVisibility.Always;
+            }
         }
 
         private void FrmSettings_Load(object sender, EventArgs e)
@@ -369,6 +379,42 @@ namespace photoRenaming
            UseRatings =(bool)logic;
 
            if (txtSourcePath.EditValue != null)
-               LoadImages();}
+               LoadImages();
+        }
+
+        private void groupControlSource_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+        }
+
+        private void groupControlSource_DragDrop(object sender, DragEventArgs e)
+        {
+            var directory = string.Empty;
+
+            string[] location = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            
+            FileAttributes attr = File.GetAttributes(location[0].ToString());
+            if(attr.HasFlag(FileAttributes.Directory))
+                directory = location[0].ToString();
+            else
+                directory = Path.GetDirectoryName(location[0].ToString());
+
+            txtSourcePath.EditValue = directory;
+        }
+
+        private void btnClear_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            txtSourcePath.EditValue = null;
+            txtDestination.EditValue = null;
+            txtPlayerSequence.EditValue = null;
+            txtSuffix.EditValue = null;
+            gc.Visible = false;
+            groupControlSource.Visible = true;
+            groupControlDestination.Visible = true;
+            btnPreview.Visibility =BarItemVisibility.Never;
+            FileList.Clear();
+            UseRatings = false;
+            toggleSwitchLogic.Checked = false;
+        }
     }
 }

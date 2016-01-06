@@ -57,12 +57,12 @@
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.panelSettings = new System.Windows.Forms.Panel();
-            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.groupControlDestination = new DevExpress.XtraEditors.GroupControl();
             this.chkOpenWhenDone = new DevExpress.XtraEditors.CheckEdit();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.txtDestination = new DevExpress.XtraEditors.TextEdit();
             this.btnDestinationFolder = new DevExpress.XtraEditors.SimpleButton();
-            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.groupControlSource = new DevExpress.XtraEditors.GroupControl();
             this.chkIncludeSubFolder = new DevExpress.XtraEditors.CheckEdit();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.txtSuffix = new DevExpress.XtraEditors.TextEdit();
@@ -71,16 +71,17 @@
             this.btnSourceFolder = new DevExpress.XtraEditors.SimpleButton();
             this.gc = new DevExpress.XtraBars.Ribbon.GalleryControl();
             this.galleryControlClient1 = new DevExpress.XtraBars.Ribbon.GalleryControlClient();
+            this.btnClear = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemToggleSwitch1)).BeginInit();
             this.panelSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
-            this.groupControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControlDestination)).BeginInit();
+            this.groupControlDestination.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkOpenWhenDone.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDestination.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
-            this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControlSource)).BeginInit();
+            this.groupControlSource.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkIncludeSubFolder.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSuffix.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSourcePath.Properties)).BeginInit();
@@ -105,9 +106,10 @@
             this.chkUseRatings,
             this.txtPlayerSequence,
             this.toggleSwitchLogic,
-            this.barToggle});
+            this.barToggle,
+            this.btnClear});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 21;
+            this.ribbon.MaxItemId = 22;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -142,6 +144,8 @@
             this.btnBack.Caption = "Back";
             this.btnBack.Glyph = ((System.Drawing.Image)(resources.GetObject("btnBack.Glyph")));
             this.btnBack.Id = 3;
+            this.btnBack.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.btnBack.ItemAppearance.Normal.Options.UseFont = true;
             this.btnBack.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnBack.LargeGlyph")));
             this.btnBack.Name = "btnBack";
             this.btnBack.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnBack_ItemClick);
@@ -151,6 +155,8 @@
             this.btnPreview.Caption = "Preview";
             this.btnPreview.Glyph = ((System.Drawing.Image)(resources.GetObject("btnPreview.Glyph")));
             this.btnPreview.Id = 4;
+            this.btnPreview.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.btnPreview.ItemAppearance.Normal.Options.UseFont = true;
             this.btnPreview.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnPreview.LargeGlyph")));
             this.btnPreview.Name = "btnPreview";
             this.btnPreview.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnPreview_ItemClick);
@@ -230,7 +236,7 @@
             this.txtPlayerSequence.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.txtPlayerSequence.ItemAppearance.Normal.Options.UseFont = true;
             this.txtPlayerSequence.Name = "txtPlayerSequence";
-            this.txtPlayerSequence.Width = 550;
+            this.txtPlayerSequence.Width = 500;
             // 
             // repositoryItemTextEdit1
             // 
@@ -276,6 +282,7 @@
             // 
             this.ribbonPageGroup1.AllowTextClipping = false;
             this.ribbonPageGroup1.ItemLinks.Add(this.btnProcess, false, "", "", true);
+            this.ribbonPageGroup1.ItemLinks.Add(this.btnClear);
             this.ribbonPageGroup1.ItemLinks.Add(this.btnPreview);
             this.ribbonPageGroup1.ItemLinks.Add(this.btnBack);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
@@ -306,8 +313,8 @@
             // 
             // panelSettings
             // 
-            this.panelSettings.Controls.Add(this.groupControl2);
-            this.panelSettings.Controls.Add(this.groupControl1);
+            this.panelSettings.Controls.Add(this.groupControlDestination);
+            this.panelSettings.Controls.Add(this.groupControlSource);
             this.panelSettings.Controls.Add(this.gc);
             this.panelSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelSettings.Location = new System.Drawing.Point(0, 155);
@@ -315,19 +322,19 @@
             this.panelSettings.Size = new System.Drawing.Size(1257, 555);
             this.panelSettings.TabIndex = 2;
             // 
-            // groupControl2
+            // groupControlDestination
             // 
-            this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupControl2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.groupControl2.Controls.Add(this.chkOpenWhenDone);
-            this.groupControl2.Controls.Add(this.labelControl4);
-            this.groupControl2.Controls.Add(this.txtDestination);
-            this.groupControl2.Controls.Add(this.btnDestinationFolder);
-            this.groupControl2.Location = new System.Drawing.Point(663, 108);
-            this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(532, 235);
-            this.groupControl2.TabIndex = 16;
-            this.groupControl2.Text = "Destination";
+            this.groupControlDestination.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControlDestination.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupControlDestination.Controls.Add(this.chkOpenWhenDone);
+            this.groupControlDestination.Controls.Add(this.labelControl4);
+            this.groupControlDestination.Controls.Add(this.txtDestination);
+            this.groupControlDestination.Controls.Add(this.btnDestinationFolder);
+            this.groupControlDestination.Location = new System.Drawing.Point(663, 108);
+            this.groupControlDestination.Name = "groupControlDestination";
+            this.groupControlDestination.Size = new System.Drawing.Size(532, 235);
+            this.groupControlDestination.TabIndex = 16;
+            this.groupControlDestination.Text = "Destination";
             // 
             // chkOpenWhenDone
             // 
@@ -368,22 +375,24 @@
             this.btnDestinationFolder.Text = "Select";
             this.btnDestinationFolder.Click += new System.EventHandler(this.btnDestinationFolder_Click);
             // 
-            // groupControl1
+            // groupControlSource
             // 
-            this.groupControl1.AllowDrop = true;
-            this.groupControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.groupControl1.Controls.Add(this.chkIncludeSubFolder);
-            this.groupControl1.Controls.Add(this.labelControl2);
-            this.groupControl1.Controls.Add(this.txtSuffix);
-            this.groupControl1.Controls.Add(this.labelControl1);
-            this.groupControl1.Controls.Add(this.txtSourcePath);
-            this.groupControl1.Controls.Add(this.btnSourceFolder);
-            this.groupControl1.Location = new System.Drawing.Point(60, 108);
-            this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(517, 235);
-            this.groupControl1.TabIndex = 15;
-            this.groupControl1.Text = "Source (Browse Or drag drop folder)";
-            this.groupControl1.UseDisabledStatePainter = false;
+            this.groupControlSource.AllowDrop = true;
+            this.groupControlSource.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupControlSource.Controls.Add(this.chkIncludeSubFolder);
+            this.groupControlSource.Controls.Add(this.labelControl2);
+            this.groupControlSource.Controls.Add(this.txtSuffix);
+            this.groupControlSource.Controls.Add(this.labelControl1);
+            this.groupControlSource.Controls.Add(this.txtSourcePath);
+            this.groupControlSource.Controls.Add(this.btnSourceFolder);
+            this.groupControlSource.Location = new System.Drawing.Point(60, 108);
+            this.groupControlSource.Name = "groupControlSource";
+            this.groupControlSource.Size = new System.Drawing.Size(517, 235);
+            this.groupControlSource.TabIndex = 15;
+            this.groupControlSource.Text = "Source (Browse Or drag drop folder)";
+            this.groupControlSource.UseDisabledStatePainter = false;
+            this.groupControlSource.DragDrop += new System.Windows.Forms.DragEventHandler(this.groupControlSource_DragDrop);
+            this.groupControlSource.DragEnter += new System.Windows.Forms.DragEventHandler(this.groupControlSource_DragEnter);
             // 
             // chkIncludeSubFolder
             // 
@@ -485,6 +494,17 @@
             this.galleryControlClient1.Location = new System.Drawing.Point(2, 2);
             this.galleryControlClient1.Size = new System.Drawing.Size(1236, 551);
             // 
+            // btnClear
+            // 
+            this.btnClear.Caption = "Clear";
+            this.btnClear.Glyph = ((System.Drawing.Image)(resources.GetObject("btnClear.Glyph")));
+            this.btnClear.Id = 21;
+            this.btnClear.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.btnClear.ItemAppearance.Normal.Options.UseFont = true;
+            this.btnClear.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnClear.LargeGlyph")));
+            this.btnClear.Name = "btnClear";
+            this.btnClear.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnClear_ItemClick);
+            // 
             // FrmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -502,14 +522,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemToggleSwitch1)).EndInit();
             this.panelSettings.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
-            this.groupControl2.ResumeLayout(false);
-            this.groupControl2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControlDestination)).EndInit();
+            this.groupControlDestination.ResumeLayout(false);
+            this.groupControlDestination.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkOpenWhenDone.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDestination.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
-            this.groupControl1.ResumeLayout(false);
-            this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControlSource)).EndInit();
+            this.groupControlSource.ResumeLayout(false);
+            this.groupControlSource.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkIncludeSubFolder.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSuffix.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSourcePath.Properties)).EndInit();
@@ -526,14 +546,14 @@
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
         private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar;
         private System.Windows.Forms.Panel panelSettings;
-        private DevExpress.XtraEditors.GroupControl groupControl1;
+        private DevExpress.XtraEditors.GroupControl groupControlSource;
         private DevExpress.XtraEditors.CheckEdit chkIncludeSubFolder;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.TextEdit txtSuffix;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.TextEdit txtSourcePath;
         private DevExpress.XtraEditors.SimpleButton btnSourceFolder;
-        private DevExpress.XtraEditors.GroupControl groupControl2;
+        private DevExpress.XtraEditors.GroupControl groupControlDestination;
         private DevExpress.XtraEditors.CheckEdit chkOpenWhenDone;
         private DevExpress.XtraEditors.LabelControl labelControl4;
         private DevExpress.XtraEditors.TextEdit txtDestination;
@@ -567,6 +587,7 @@
         private DevExpress.XtraBars.BarToggleSwitchItem toggleSwitchLogic;
         private DevExpress.XtraBars.BarEditItem barToggle;
         private DevExpress.XtraEditors.Repository.RepositoryItemToggleSwitch repositoryItemToggleSwitch1;
+        private DevExpress.XtraBars.BarButtonItem btnClear;
         //private DevExpress.XtraBars.BarStaticItem lblStatus;
         
     }
