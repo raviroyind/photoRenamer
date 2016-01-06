@@ -257,7 +257,7 @@ namespace photoRenaming
                 }
 
                 if (!chkOpenWhenDone.Checked)
-                    XtraMessageBox.Show("Image sets created." + Environment.NewLine + "Open output folder?",
+                    XtraMessageBox.Show("Image sets created successfully.",
                         "Operation Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
                     System.Diagnostics.Process.Start(txtDestination.EditValue.ToString());
