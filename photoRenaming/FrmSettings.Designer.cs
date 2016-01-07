@@ -443,7 +443,8 @@
             this.txtSourcePath.Properties.Appearance.Options.UseFont = true;
             this.txtSourcePath.Size = new System.Drawing.Size(286, 36);
             this.txtSourcePath.TabIndex = 2;
-            this.txtSourcePath.TextChanged += new System.EventHandler(this.txtSourcePath_TextChanged);
+            //uncomment
+            //this.txtSourcePath.TextChanged += new System.EventHandler(this.txtSourcePath_TextChanged);
             // 
             // btnSourceFolder
             // 

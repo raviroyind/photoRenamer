@@ -10,6 +10,7 @@ using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraPrinting.Native;
+using DevExpress.XtraSplashScreen;
 using photoRenaming.Core;
 
 namespace photoRenaming
@@ -36,6 +37,10 @@ namespace photoRenaming
             {
                 if (dialouge.ShowDialog() == DialogResult.OK)
                 {
+                    SplashScreenManager.ShowForm(this, typeof(ProgressForm), true, true, false);
+
+                    SplashScreenManager.Default.SetWaitFormDescription("Importing...");
+
                     txtSourcePath.EditValue = dialouge.SelectedPath;
 
                     var dInfo = new DirectoryInfo(txtSourcePath.EditValue.ToString());
@@ -49,6 +54,7 @@ namespace photoRenaming
                         FullPath = file.FullName,
                         Rating = GetRating(file),
                     }));
+                    SplashScreenManager.CloseForm(false);
 
                     if (FileList.Count > 0)
                     {
@@ -142,7 +148,10 @@ namespace photoRenaming
             gc.Gallery.Groups.Add(group1);
             btnBack.Visibility = BarItemVisibility.Always;
             btnPreview.Visibility=BarItemVisibility.Never;
-            
+            SplashScreenManager.ShowForm(this, typeof(ProgressForm), true, true, false);
+
+            SplashScreenManager.Default.SetWaitFormDescription("Loading...");
+
             if (!UseRatings)
             {
                 foreach (var file in FileList)
@@ -159,6 +168,8 @@ namespace photoRenaming
                     group1.Items.Add(new GalleryItem(img, file.Name, GetRatingString(file.Rating)));
                 }
             }
+
+            SplashScreenManager.CloseForm(false);
         }
 
         private static string GetRatingString(string ratings)
@@ -231,9 +242,11 @@ namespace photoRenaming
                     return;
                 }
                  var iCount = 0;
+                 SplashScreenManager.ShowForm(this, typeof(ProgressForm), true, true, false);
 
+                 SplashScreenManager.Default.SetWaitFormDescription("Processing Images...");
                 foreach (var file in FileList)
-                {
+                { 
                     file.ImageSet = sequenceArray[iCount].ToString();
 
                     bucketList.Add(file);
@@ -256,11 +269,16 @@ namespace photoRenaming
                     }
                 }
 
+                SplashScreenManager.CloseForm(false);
+
                 if (!chkOpenWhenDone.Checked)
                     XtraMessageBox.Show("Image sets created successfully.",
                         "Operation Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
                     System.Diagnostics.Process.Start(txtDestination.EditValue.ToString());
+
+               
+                FileList.Clear();
             }
             else
             {
@@ -400,6 +418,33 @@ namespace photoRenaming
                 directory = Path.GetDirectoryName(location[0].ToString());
 
             txtSourcePath.EditValue = directory;
+
+            if (!string.IsNullOrEmpty(directory))
+            {
+                SplashScreenManager.ShowForm(this, typeof(ProgressForm), true, true, false);
+
+                SplashScreenManager.Default.SetWaitFormDescription("Importing...");
+                var dInfo = new DirectoryInfo(txtSourcePath.EditValue.ToString());
+
+                var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+               
+                FileList=new List<ImageFile>();
+
+                FileList.AddRange(fInfo.Select(file => new ImageFile
+                {
+                    Name = file.Name,
+                    Attributes = file.Attributes,
+                    FullPath = file.FullName,
+                    Rating = GetRating(file),
+                }));
+
+                if (FileList.Count > 0)
+                {
+                    LoadImages();
+                }
+
+                SplashScreenManager.CloseForm(false);
+            }
         }
 
         private void btnClear_ItemClick(object sender, ItemClickEventArgs e)
