@@ -32,6 +32,7 @@ namespace photoRenaming
 
         private void btnSourceFolder_Click(object sender, EventArgs e)
         {
+            FileList = null;
             FileList = new List<ImageFile>();
             using (var dialouge = new FolderBrowserDialog())
             {
@@ -74,28 +75,7 @@ namespace photoRenaming
                 }
             }
         }
-
-        private void btnProcess_Click(object sender, EventArgs e)
-        {
-            List<ImageFile> bucketList = new List<ImageFile>();
-
-            foreach (var file in FileList)
-            {
-                bucketList.Add(file);
-                if (UseRatings && !string.IsNullOrEmpty(file.Rating))
-                {
-                    CreateOutput(bucketList, txtDestination.EditValue.ToString());
-                    bucketList.Clear();
-                }
-                else if (!UseRatings  && file.Attributes.ToString().Equals("ReadOnly, Archive"))
-                {
-                    CreateOutput(bucketList, txtDestination.EditValue.ToString());
-                    bucketList.Clear();
-                }
-            }
-        }
- 
-
+  
         private static string GetRating(FileSystemInfo file)
         {
             var rating = string.Empty;
@@ -122,6 +102,10 @@ namespace photoRenaming
                     FileList.FirstOrDefault(f => f.Name.Equals(item.Caption)).Attributes = FileAttributes.Archive;
                 else if(FileList.FirstOrDefault(f => f.Name.Equals(item.Caption)).Attributes.Equals(FileAttributes.Archive))
                     FileList.FirstOrDefault(f => f.Name.Equals(item.Caption)).Attributes = FileAttributes.ReadOnly;
+
+                e.Item.Description =
+                    GetAttributeString(FileList.FirstOrDefault(f => f.Name.Equals(item.Caption)).Attributes);
+
             }
             else
             {
@@ -129,9 +113,12 @@ namespace photoRenaming
                     FileList.FirstOrDefault(f => f.Name.Equals(item.Caption)).Rating = string.Empty;
                 else if (string.IsNullOrEmpty(FileList.FirstOrDefault(f => f.Name.Equals(item.Caption)).Rating))
                     FileList.FirstOrDefault(f => f.Name.Equals(item.Caption)).Rating = "5";
-            }
 
-            LoadImages();
+                e.Item.Description =
+                    GetRatingString(FileList.FirstOrDefault(f => f.Name.Equals(item.Caption)).Rating);
+            }
+             
+            //LoadImages();
         }
 
         private void LoadImages()
@@ -278,7 +265,7 @@ namespace photoRenaming
                     System.Diagnostics.Process.Start(txtDestination.EditValue.ToString());
 
                
-                FileList.Clear();
+                //FileList.Clear();
             }
             else
             {
@@ -288,15 +275,22 @@ namespace photoRenaming
 
         private void CreateOutput(List<ImageFile> bucketList, string destinationFolder)
         {
-            if (!Directory.Exists(destinationFolder + "\\" + bucketList.FirstOrDefault().ImageSet + "\\"))
-                Directory.CreateDirectory(destinationFolder + "\\" + bucketList.FirstOrDefault().ImageSet + "\\");
+            
+            var outPath = destinationFolder + "\\";
+            if (!chkNoSubFolders.Checked)
+            {
+                outPath = destinationFolder + "\\" + bucketList.FirstOrDefault().ImageSet + "\\";
+            }
+            
+            if (!Directory.Exists(outPath))
+                Directory.CreateDirectory(outPath);
              
             var iCount = 1;
             foreach (var file in bucketList)
             {
                 using (var bmp = new Bitmap(file.FullPath))
                 {
-                    var finalName = destinationFolder + "\\" + file.ImageSet + "\\" + file.ImageSet;
+                    var finalName = outPath + file.ImageSet;
 
                     if (txtSuffix.EditValue != null)
                         finalName += txtSuffix.EditValue.ToString();
@@ -361,8 +355,26 @@ namespace photoRenaming
 
         private void chkUseRatings_CheckedChanged(object sender, ItemClickEventArgs e)
         {
-            if(txtSourcePath.EditValue!=null)
-                LoadImages();
+            if (txtSourcePath.EditValue != null)
+            {
+                if (FileList == null)
+                {
+                    FileList = new List<ImageFile>();
+
+                    var dInfo = new DirectoryInfo(txtSourcePath.EditValue.ToString());
+
+                    var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+
+                    FileList.AddRange(fInfo.Select(file => new ImageFile
+                    {
+                        Name = file.Name,
+                        Attributes = file.Attributes,
+                        FullPath = file.FullName,
+                        Rating = GetRating(file),
+                    }));
+                     LoadImages();
+                }
+            }
         }
 
         private bool ValidateForm()
@@ -427,8 +439,8 @@ namespace photoRenaming
                 var dInfo = new DirectoryInfo(txtSourcePath.EditValue.ToString());
 
                 var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-               
-                FileList=new List<ImageFile>();
+
+                FileList = null;FileList=new List<ImageFile>();
 
                 FileList.AddRange(fInfo.Select(file => new ImageFile
                 {
@@ -457,8 +469,7 @@ namespace photoRenaming
             groupControlSource.Visible = true;
             groupControlDestination.Visible = true;
             btnPreview.Visibility =BarItemVisibility.Never;
-            FileList.Clear();
-            UseRatings = false;
+            FileList.Clear();UseRatings = false;
             toggleSwitchLogic.Checked = false;
         }
     }

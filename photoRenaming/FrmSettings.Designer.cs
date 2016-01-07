@@ -29,28 +29,25 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSettings));
-            DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem4 = new DevExpress.Utils.ToolTipItem();
             DevExpress.Utils.SuperToolTip superToolTip5 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipItem toolTipItem5 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip6 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem6 = new DevExpress.Utils.ToolTipItem();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.btnProcess = new DevExpress.XtraBars.BarButtonItem();
             this.btnBack = new DevExpress.XtraBars.BarButtonItem();
             this.btnPreview = new DevExpress.XtraBars.BarButtonItem();
             this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
-            this.barEditItem1 = new DevExpress.XtraBars.BarEditItem();
             this.barStaticItem2 = new DevExpress.XtraBars.BarStaticItem();
-            this.barEditItem2 = new DevExpress.XtraBars.BarEditItem();
-            this.barEditItem3 = new DevExpress.XtraBars.BarEditItem();
             this.chkUseRatings = new DevExpress.XtraBars.BarCheckItem();
             this.txtPlayerSequence = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.toggleSwitchLogic = new DevExpress.XtraBars.BarToggleSwitchItem();
             this.barToggle = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemToggleSwitch1 = new DevExpress.XtraEditors.Repository.RepositoryItemToggleSwitch();
+            this.btnClear = new DevExpress.XtraBars.BarButtonItem();
+            this.chkKeepTogather = new DevExpress.XtraBars.BarCheckItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -58,6 +55,7 @@
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.panelSettings = new System.Windows.Forms.Panel();
             this.groupControlDestination = new DevExpress.XtraEditors.GroupControl();
+            this.chkNoSubFolders = new DevExpress.XtraEditors.CheckEdit();
             this.chkOpenWhenDone = new DevExpress.XtraEditors.CheckEdit();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.txtDestination = new DevExpress.XtraEditors.TextEdit();
@@ -71,13 +69,14 @@
             this.btnSourceFolder = new DevExpress.XtraEditors.SimpleButton();
             this.gc = new DevExpress.XtraBars.Ribbon.GalleryControl();
             this.galleryControlClient1 = new DevExpress.XtraBars.Ribbon.GalleryControlClient();
-            this.btnClear = new DevExpress.XtraBars.BarButtonItem();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemToggleSwitch1)).BeginInit();
             this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlDestination)).BeginInit();
             this.groupControlDestination.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chkNoSubFolders.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkOpenWhenDone.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDestination.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlSource)).BeginInit();
@@ -99,17 +98,15 @@
             this.btnBack,
             this.btnPreview,
             this.barStaticItem1,
-            this.barEditItem1,
             this.barStaticItem2,
-            this.barEditItem2,
-            this.barEditItem3,
             this.chkUseRatings,
             this.txtPlayerSequence,
             this.toggleSwitchLogic,
             this.barToggle,
-            this.btnClear});
+            this.btnClear,
+            this.chkKeepTogather});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 22;
+            this.ribbon.MaxItemId = 35;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -117,7 +114,7 @@
             this.repositoryItemTextEdit1,
             this.repositoryItemToggleSwitch1});
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2013;
-            this.ribbon.Size = new System.Drawing.Size(1257, 155);
+            this.ribbon.Size = new System.Drawing.Size(1349, 155);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // barButtonItem1
@@ -166,25 +163,13 @@
             this.barStaticItem1.Caption = "Player Sequence";
             this.barStaticItem1.Id = 5;
             this.barStaticItem1.Name = "barStaticItem1";
-            toolTipItem4.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
-            toolTipItem4.Appearance.Options.UseImage = true;
-            toolTipItem4.Image = ((System.Drawing.Image)(resources.GetObject("toolTipItem4.Image")));
-            toolTipItem4.Text = "Enter comma separated player sequence.";
-            superToolTip4.Items.Add(toolTipItem4);
-            this.barStaticItem1.SuperTip = superToolTip4;
-            this.barStaticItem1.TextAlignment = System.Drawing.StringAlignment.Near;
-            // 
-            // barEditItem1
-            // 
-            this.barEditItem1.Edit = null;
-            this.barEditItem1.Id = 6;
-            this.barEditItem1.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.barEditItem1.ItemAppearance.Normal.Options.UseFont = true;
-            this.barEditItem1.Name = "barEditItem1";
+            toolTipItem5.Appearance.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
+            toolTipItem5.Appearance.Options.UseImage = true;
+            toolTipItem5.Image = ((System.Drawing.Image)(resources.GetObject("toolTipItem5.Image")));
             toolTipItem5.Text = "Enter comma separated player sequence.";
             superToolTip5.Items.Add(toolTipItem5);
-            this.barEditItem1.SuperTip = superToolTip5;
-            this.barEditItem1.Width = 250;
+            this.barStaticItem1.SuperTip = superToolTip5;
+            this.barStaticItem1.TextAlignment = System.Drawing.StringAlignment.Near;
             // 
             // barStaticItem2
             // 
@@ -194,25 +179,10 @@
             this.barStaticItem2.ItemAppearance.Normal.Options.UseFont = true;
             this.barStaticItem2.Name = "barStaticItem2";
             this.barStaticItem2.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            toolTipItem2.Text = "Enter comman separated player sequence.";
-            superToolTip2.Items.Add(toolTipItem2);
-            this.barStaticItem2.SuperTip = superToolTip2;
+            toolTipItem6.Text = "Enter comman separated player sequence.";
+            superToolTip6.Items.Add(toolTipItem6);
+            this.barStaticItem2.SuperTip = superToolTip6;
             this.barStaticItem2.TextAlignment = System.Drawing.StringAlignment.Near;
-            // 
-            // barEditItem2
-            // 
-            this.barEditItem2.Edit = null;
-            this.barEditItem2.Id = 13;
-            this.barEditItem2.Name = "barEditItem2";
-            // 
-            // barEditItem3
-            // 
-            this.barEditItem3.Caption = "barEditItem3";
-            this.barEditItem3.Edit = null;
-            this.barEditItem3.EditHeight = 26;
-            this.barEditItem3.Id = 11;
-            this.barEditItem3.Name = "barEditItem3";
-            this.barEditItem3.Width = 77;
             // 
             // chkUseRatings
             // 
@@ -269,6 +239,23 @@
             this.repositoryItemToggleSwitch1.OnText = "Use Ratings";
             this.repositoryItemToggleSwitch1.EditValueChanged += new System.EventHandler(this.repositoryItemToggleSwitch1_EditValueChanged);
             // 
+            // btnClear
+            // 
+            this.btnClear.Caption = "Clear";
+            this.btnClear.Glyph = ((System.Drawing.Image)(resources.GetObject("btnClear.Glyph")));
+            this.btnClear.Id = 21;
+            this.btnClear.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.btnClear.ItemAppearance.Normal.Options.UseFont = true;
+            this.btnClear.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnClear.LargeGlyph")));
+            this.btnClear.Name = "btnClear";
+            this.btnClear.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnClear_ItemClick);
+            // 
+            // chkKeepTogather
+            // 
+            this.chkKeepTogather.Caption = "No Subfolders";
+            this.chkKeepTogather.Id = 24;
+            this.chkKeepTogather.Name = "chkKeepTogather";
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -292,24 +279,22 @@
             // ribbonPageGroup2
             // 
             this.ribbonPageGroup2.ItemLinks.Add(this.barStaticItem2);
-            this.ribbonPageGroup2.ItemLinks.Add(this.barEditItem1);
             this.ribbonPageGroup2.ItemLinks.Add(this.txtPlayerSequence);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.ShowCaptionButton = false;
             // 
             // ribbonPageGroup3
             // 
-            this.ribbonPageGroup3.ItemLinks.Add(this.barEditItem3);
             this.ribbonPageGroup3.ItemLinks.Add(this.barToggle);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.ShowCaptionButton = false;
             // 
             // ribbonStatusBar
             // 
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 710);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 688);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(1257, 31);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(1349, 31);
             // 
             // panelSettings
             // 
@@ -319,28 +304,43 @@
             this.panelSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelSettings.Location = new System.Drawing.Point(0, 155);
             this.panelSettings.Name = "panelSettings";
-            this.panelSettings.Size = new System.Drawing.Size(1257, 555);
+            this.panelSettings.Size = new System.Drawing.Size(1349, 533);
             this.panelSettings.TabIndex = 2;
             // 
             // groupControlDestination
             // 
             this.groupControlDestination.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControlDestination.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupControlDestination.Controls.Add(this.labelControl3);
+            this.groupControlDestination.Controls.Add(this.chkNoSubFolders);
             this.groupControlDestination.Controls.Add(this.chkOpenWhenDone);
             this.groupControlDestination.Controls.Add(this.labelControl4);
             this.groupControlDestination.Controls.Add(this.txtDestination);
             this.groupControlDestination.Controls.Add(this.btnDestinationFolder);
-            this.groupControlDestination.Location = new System.Drawing.Point(663, 108);
+            this.groupControlDestination.Location = new System.Drawing.Point(755, 108);
             this.groupControlDestination.Name = "groupControlDestination";
             this.groupControlDestination.Size = new System.Drawing.Size(532, 235);
             this.groupControlDestination.TabIndex = 16;
             this.groupControlDestination.Text = "Destination";
             // 
+            // chkNoSubFolders
+            // 
+            this.chkNoSubFolders.Location = new System.Drawing.Point(138, 106);
+            this.chkNoSubFolders.MenuManager = this.ribbon;
+            this.chkNoSubFolders.Name = "chkNoSubFolders";
+            this.chkNoSubFolders.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.chkNoSubFolders.Properties.Appearance.Options.UseFont = true;
+            this.chkNoSubFolders.Properties.Caption = " ";
+            this.chkNoSubFolders.Size = new System.Drawing.Size(75, 25);
+            this.chkNoSubFolders.TabIndex = 5;
+            // 
             // chkOpenWhenDone
             // 
             this.chkOpenWhenDone.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.chkOpenWhenDone.Location = new System.Drawing.Point(398, 109);
+            this.chkOpenWhenDone.Location = new System.Drawing.Point(398, 106);
             this.chkOpenWhenDone.Name = "chkOpenWhenDone";
+            this.chkOpenWhenDone.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 8F);
+            this.chkOpenWhenDone.Properties.Appearance.Options.UseFont = true;
             this.chkOpenWhenDone.Properties.Caption = "Open when done.";
             this.chkOpenWhenDone.Size = new System.Drawing.Size(125, 20);
             this.chkOpenWhenDone.TabIndex = 4;
@@ -443,8 +443,6 @@
             this.txtSourcePath.Properties.Appearance.Options.UseFont = true;
             this.txtSourcePath.Size = new System.Drawing.Size(286, 36);
             this.txtSourcePath.TabIndex = 2;
-            //uncomment
-            //this.txtSourcePath.TextChanged += new System.EventHandler(this.txtSourcePath_TextChanged);
             // 
             // btnSourceFolder
             // 
@@ -485,7 +483,7 @@
             this.gc.Gallery.ItemClick += new DevExpress.XtraBars.Ribbon.GalleryItemClickEventHandler(this.galleryControlGallery1_ItemClick);
             this.gc.Location = new System.Drawing.Point(0, 0);
             this.gc.Name = "gc";
-            this.gc.Size = new System.Drawing.Size(1257, 555);
+            this.gc.Size = new System.Drawing.Size(1349, 533);
             this.gc.TabIndex = 0;
             this.gc.Visible = false;
             // 
@@ -493,24 +491,22 @@
             // 
             this.galleryControlClient1.GalleryControl = this.gc;
             this.galleryControlClient1.Location = new System.Drawing.Point(2, 2);
-            this.galleryControlClient1.Size = new System.Drawing.Size(1236, 551);
+            this.galleryControlClient1.Size = new System.Drawing.Size(1328, 529);
             // 
-            // btnClear
+            // labelControl3
             // 
-            this.btnClear.Caption = "Clear";
-            this.btnClear.Glyph = ((System.Drawing.Image)(resources.GetObject("btnClear.Glyph")));
-            this.btnClear.Id = 21;
-            this.btnClear.ItemAppearance.Normal.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.btnClear.ItemAppearance.Normal.Options.UseFont = true;
-            this.btnClear.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnClear.LargeGlyph")));
-            this.btnClear.Name = "btnClear";
-            this.btnClear.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnClear_ItemClick);
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.labelControl3.Location = new System.Drawing.Point(17, 110);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(97, 18);
+            this.labelControl3.TabIndex = 6;
+            this.labelControl3.Text = "No Subfolders?";
             // 
             // FrmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1257, 741);
+            this.ClientSize = new System.Drawing.Size(1349, 719);
             this.Controls.Add(this.panelSettings);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
@@ -526,6 +522,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControlDestination)).EndInit();
             this.groupControlDestination.ResumeLayout(false);
             this.groupControlDestination.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chkNoSubFolders.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkOpenWhenDone.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDestination.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlSource)).EndInit();
@@ -567,29 +564,29 @@
         private DevExpress.XtraBars.BarButtonItem btnBack;
         private DevExpress.XtraBars.BarButtonItem btnPreview;
         private DevExpress.XtraBars.BarStaticItem barStaticItem1;
-        private DevExpress.XtraBars.BarEditItem barEditItem1;
+       
        
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.BarStaticItem barStaticItem2;
         
         
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
-        private DevExpress.XtraBars.BarEditItem barEditItem2;
+         
         
-        
-        private DevExpress.XtraBars.BarEditItem barEditItem3;
-       // private DevExpress.XtraBars.BarEditItem toggleSwitchLogic;
-        //private DevExpress.XtraEditors.Repository.RepositoryItemToggleSwitch repositoryItemToggleSwitch1;
-       // private DevExpress.XtraBars.BarCheckItem barCheckItem1;
+         
+      
         private DevExpress.XtraBars.BarCheckItem chkUseRatings;
-        //private DevExpress.XtraBars.BarToggleSwitchItem CheckWater1;
+       
         private DevExpress.XtraBars.BarEditItem txtPlayerSequence;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
         private DevExpress.XtraBars.BarToggleSwitchItem toggleSwitchLogic;
         private DevExpress.XtraBars.BarEditItem barToggle;
         private DevExpress.XtraEditors.Repository.RepositoryItemToggleSwitch repositoryItemToggleSwitch1;
         private DevExpress.XtraBars.BarButtonItem btnClear;
-        //private DevExpress.XtraBars.BarStaticItem lblStatus;
-        
+        private DevExpress.XtraBars.BarCheckItem chkKeepTogather;
+        private DevExpress.XtraEditors.CheckEdit chkNoSubFolders;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
+       
+         
     }
 }
