@@ -47,21 +47,24 @@ namespace photoRenaming
                     var dInfo = new DirectoryInfo(txtSourcePath.EditValue.ToString());
 
                     var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-
+                     
                     FileList.AddRange(fInfo.Select(file => new ImageFile
                     {
                         Name = file.Name,
                         Attributes = file.Attributes,
                         FullPath = file.FullName,
-                        Rating = GetRating(file),
+                        Rating = UseRatings ? GetRating(file) : ""
                     }));
+                      
                     SplashScreenManager.CloseForm(false);
 
                     if (FileList.Count > 0)
                     {
-                        LoadImages();
-                    }
-                }
+                        btnPreview.Visibility = BarItemVisibility.Always;using (var form = new PreviewForm(FileList,UseRatings))
+                        {
+                            form.ShowDialog(this);
+                        }
+                    }}
             }
         }
 
@@ -75,19 +78,40 @@ namespace photoRenaming
                 }
             }
         }
-  
         private static string GetRating(FileSystemInfo file)
         {
-            var rating = string.Empty;
-            var bitmap = (Bitmap)Image.FromFile(file.FullName);
-            try
+            var returnValue = string.Empty;
+            SplashScreenManager.Default.SetWaitFormDescription("Processing Image Ratings: "+file.Name);
+          var bitmap = (Bitmap) Image.FromFile(file.FullName);try
             {
                 var propItem = bitmap.GetPropertyItem(18246);
-                rating = BitConverter.ToInt16(propItem.Value, 0).ToString();
+                var rating =  BitConverter.ToInt16(propItem.Value, 0).ToString();
+
+                switch (rating)
+                {
+                    case "1":
+                        returnValue = "*";
+                        break;
+                    case "2":
+                        returnValue = "**";
+                        break;
+                    case "3":
+                        returnValue = "***";
+                        break;
+                    case "4":
+                        returnValue = "****";
+                        break;
+                    case "5":
+                        returnValue = "*****";
+                        break;
+                }
+                 
             }
             catch (Exception)
-            { }
-            return rating;
+            {
+                bitmap.Dispose();
+            }
+            return returnValue;
         }
 
         private void galleryControlGallery1_ItemClick(object sender, GalleryItemClickEventArgs e)
@@ -197,8 +221,7 @@ namespace photoRenaming
                     returnValue = " (Locked)";
                     break;
                 case "ReadOnly":
-                    returnValue = " (Locked)";
-                    break;
+                    returnValue = " (Locked)";break;
             }
 
             return returnValue;
@@ -240,6 +263,9 @@ namespace photoRenaming
 
                     if (UseRatings && !string.IsNullOrEmpty(file.Rating))
                     {
+
+                        
+
                         CreateOutput(bucketList, txtDestination.EditValue.ToString());
                         bucketList.Clear();
 
@@ -275,7 +301,7 @@ namespace photoRenaming
 
         private void CreateOutput(List<ImageFile> bucketList, string destinationFolder)
         {
-            
+             
             var outPath = destinationFolder + "\\";
             if (!chkNoSubFolders.Checked)
             {
@@ -288,6 +314,7 @@ namespace photoRenaming
             var iCount = 1;
             foreach (var file in bucketList)
             {
+                SplashScreenManager.Default.SetWaitFormDescription("Processing "+ file.Name);
                 using (var bmp = new Bitmap(file.FullPath))
                 {
                     var finalName = outPath + file.ImageSet;
@@ -313,10 +340,37 @@ namespace photoRenaming
         }
         private void btnPreview_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (FileList.Count > 0)
+            if (txtSourcePath.EditValue != null)
             {
-                LoadImages();
+                if (FileList == null)
+                {
+                    FileList = new List<ImageFile>();
+                    btnPreview.Visibility = BarItemVisibility.Always;
+                    SplashScreenManager.ShowForm(this, typeof(ProgressForm), true, true, false);
+                    SplashScreenManager.Default.SetWaitFormDescription("Processing Images...");
+
+                    var dInfo = new DirectoryInfo(txtSourcePath.EditValue.ToString());
+
+                    var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+
+                    FileList.AddRange(fInfo.Select(file => new ImageFile
+                    {
+                        Name = file.Name,
+                        Attributes = file.Attributes,
+                        FullPath = file.FullName,
+                        Rating = UseRatings ? GetRating(file) : ""
+                    }));
+
+                    SplashScreenManager.CloseForm(false);
+                }
+                 
+                if (FileList.Count > 0)
+                {
+                    var preview = new PreviewForm(FileList, UseRatings);
+                    preview.ShowDialog(this);
+                }
             }
+            
         }
 
         private void txtSourcePath_TextChanged(object sender, EventArgs e)
@@ -350,30 +404,47 @@ namespace photoRenaming
 
         private void FrmSettings_Load(object sender, EventArgs e)
         {
-            UseRatings = false;
+            if (barToggle.EditValue == null)
+            {
+                barToggle.EditValue=false;
+                UseRatings = false;
+            }
+            else
+            {
+                UseRatings = Convert.ToBoolean(barToggle.EditValue);
+            }
+
+            if (txtSourcePath.EditValue != null)
+                btnPreview.Visibility = BarItemVisibility.Always;
         }
 
         private void chkUseRatings_CheckedChanged(object sender, ItemClickEventArgs e)
         {
             if (txtSourcePath.EditValue != null)
             {
-                if (FileList == null)
+                FileList = null;
+                FileList = new List<ImageFile>();
+
+                var dInfo = new DirectoryInfo(txtSourcePath.EditValue.ToString());
+
+                var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+
+                FileList.AddRange(fInfo.Select(file => new ImageFile
                 {
-                    FileList = new List<ImageFile>();
+                    Name = file.Name,
+                    Attributes = file.Attributes,
+                    FullPath = file.FullName,
+                    Rating = UseRatings ? GetRating(file) : ""
+                }));
 
-                    var dInfo = new DirectoryInfo(txtSourcePath.EditValue.ToString());
-
-                    var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-
-                    FileList.AddRange(fInfo.Select(file => new ImageFile
-                    {
-                        Name = file.Name,
-                        Attributes = file.Attributes,
-                        FullPath = file.FullName,
-                        Rating = GetRating(file),
-                    }));
-                     LoadImages();
+                
+                if (FileList.Count > 0)
+                {
+                    var preview = new PreviewForm(FileList,UseRatings);
+                    preview.ShowDialog(this);
                 }
+                      
+                    //LoadImages();
             }
         }
 
@@ -409,7 +480,31 @@ namespace photoRenaming
            UseRatings =(bool)logic;
 
            if (txtSourcePath.EditValue != null)
-               LoadImages();
+           {
+               FileList = null;
+               FileList = new List<ImageFile>();
+               btnPreview.Visibility = BarItemVisibility.Always;
+               SplashScreenManager.ShowForm(this, typeof(ProgressForm), true, true, false);
+               SplashScreenManager.Default.SetWaitFormDescription("Processing Images...");
+
+               var dInfo = new DirectoryInfo(txtSourcePath.EditValue.ToString());
+
+               var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+
+               FileList.AddRange(fInfo.Select(file => new ImageFile
+               {
+                   Name = file.Name,
+                   Attributes = file.Attributes,
+                   FullPath = file.FullName,
+                   Rating = UseRatings ? GetRating(file) : ""
+               }));
+               SplashScreenManager.CloseForm(false);
+               if (FileList.Count > 0)
+               {
+                   var preview = new PreviewForm(FileList, UseRatings);
+                   preview.ShowDialog(this);
+               }
+            }
         }
 
         private void groupControlSource_DragEnter(object sender, DragEventArgs e)
@@ -422,40 +517,46 @@ namespace photoRenaming
             var directory = string.Empty;
 
             string[] location = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-            
             FileAttributes attr = File.GetAttributes(location[0].ToString());
             if(attr.HasFlag(FileAttributes.Directory))
                 directory = location[0].ToString();
             else
                 directory = Path.GetDirectoryName(location[0].ToString());
-
             txtSourcePath.EditValue = directory;
 
             if (!string.IsNullOrEmpty(directory))
             {
+                FileList = null;
+                FileList = new List<ImageFile>();
+                
                 SplashScreenManager.ShowForm(this, typeof(ProgressForm), true, true, false);
 
                 SplashScreenManager.Default.SetWaitFormDescription("Importing...");
+
+                txtSourcePath.EditValue = directory;
+
                 var dInfo = new DirectoryInfo(txtSourcePath.EditValue.ToString());
 
                 var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-
-                FileList = null;FileList=new List<ImageFile>();
 
                 FileList.AddRange(fInfo.Select(file => new ImageFile
                 {
                     Name = file.Name,
                     Attributes = file.Attributes,
                     FullPath = file.FullName,
-                    Rating = GetRating(file),
+                    Rating = UseRatings ? GetRating(file) : ""
                 }));
+
+                SplashScreenManager.CloseForm(false);
 
                 if (FileList.Count > 0)
                 {
-                    LoadImages();
+                    btnPreview.Visibility = BarItemVisibility.Always; using (var form = new PreviewForm(FileList, UseRatings))
+                    {
+                        form.ShowDialog(this);
+                    }
                 }
-
-                SplashScreenManager.CloseForm(false);
+              
             }
         }
 
@@ -471,6 +572,12 @@ namespace photoRenaming
             btnPreview.Visibility =BarItemVisibility.Never;
             FileList.Clear();UseRatings = false;
             toggleSwitchLogic.Checked = false;
+        }
+
+
+        public void SendToParent(List<ImageFile> list)
+        {
+            this.FileList = list;
         }
     }
 }
