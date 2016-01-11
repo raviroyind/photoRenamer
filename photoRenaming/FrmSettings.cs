@@ -13,10 +13,10 @@ using DevExpress.XtraPrinting.Native;
 using DevExpress.XtraSplashScreen;
 using photoRenaming.Core;
 
+
 namespace photoRenaming
 {
-    public partial class FrmSettings : RibbonForm
-    {
+    public partial class FrmSettings : RibbonForm{
         public List<ImageFile> FileList;
         public bool UseRatings { get; set; }
 
@@ -78,15 +78,21 @@ namespace photoRenaming
                 }
             }
         }
+
         private static string GetRating(FileSystemInfo file)
         {
-            var returnValue = string.Empty;
-            SplashScreenManager.Default.SetWaitFormDescription("Processing Image Ratings: "+file.Name);
-          var bitmap = (Bitmap) Image.FromFile(file.FullName);try
-            {
-                var propItem = bitmap.GetPropertyItem(18246);
-                var rating =  BitConverter.ToInt16(propItem.Value, 0).ToString();
+            var returnValue = string.Empty;var rating = string.Empty;
+            SplashScreenManager.Default.SetWaitFormDescription("Processing Image Ratings: " + file.Name);
 
+            try
+            {
+                var listExiff = MetadataExtractor.ImageMetadataReader.ReadMetadata(file.FullName);
+
+                foreach (var tag in from directory in listExiff from tag in directory.Tags where tag.TagName.Equals("Rating") select tag)
+                {
+                    rating = tag.Description;
+                }
+                 
                 switch (rating)
                 {
                     case "1":
@@ -105,12 +111,12 @@ namespace photoRenaming
                         returnValue = "*****";
                         break;
                 }
-                 
             }
             catch (Exception)
             {
-                bitmap.Dispose();
+                returnValue = string.Empty;
             }
+            
             return returnValue;
         }
 
@@ -263,9 +269,7 @@ namespace photoRenaming
 
                     if (UseRatings && !string.IsNullOrEmpty(file.Rating))
                     {
-
-                        
-
+                         
                         CreateOutput(bucketList, txtDestination.EditValue.ToString());
                         bucketList.Clear();
 

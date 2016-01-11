@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "photoRenaming", "photoRenaming\photoRenaming.csproj", "{F4852C2B-86E5-4371-BD3B-C45805009348}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HockeyAppSetup", "HockeyAppSetup\HockeyAppSetup.vdproj", "{28E1F833-7473-439F-9BA9-6C69F51B5F8C}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "iMageSorterSetup", "iMageSorterSetup\iMageSorterSetup.vdproj", "{656BD3D6-53AC-46E3-AC1D-60560F2186BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{F4852C2B-86E5-4371-BD3B-C45805009348}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4852C2B-86E5-4371-BD3B-C45805009348}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4852C2B-86E5-4371-BD3B-C45805009348}.Release|Any CPU.Build.0 = Release|Any CPU
-		{28E1F833-7473-439F-9BA9-6C69F51B5F8C}.Debug|Any CPU.ActiveCfg = Debug
-		{28E1F833-7473-439F-9BA9-6C69F51B5F8C}.Release|Any CPU.ActiveCfg = Release
+		{656BD3D6-53AC-46E3-AC1D-60560F2186BA}.Debug|Any CPU.ActiveCfg = Debug
+		{656BD3D6-53AC-46E3-AC1D-60560F2186BA}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
