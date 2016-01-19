@@ -32,9 +32,10 @@
             this.gridSplitContainer = new DevExpress.XtraEditors.SplitContainerControl();
             this.gridPreview = new DevExpress.XtraGrid.GridControl();
             this.gridViewMain = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.btnSaveClose = new DevExpress.XtraEditors.SimpleButton();
             this.gridColumnName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnAttributes = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btnSaveClose = new DevExpress.XtraEditors.SimpleButton();
+            this.gridColumnNumber = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridSplitContainer)).BeginInit();
             this.gridSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPreview)).BeginInit();
@@ -73,22 +74,11 @@
             // 
             this.gridViewMain.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.gridColumnName,
+            this.gridColumnNumber,
             this.gridColumnAttributes});
             this.gridViewMain.GridControl = this.gridPreview;
             this.gridViewMain.Name = "gridViewMain";
             this.gridViewMain.RowClick += new DevExpress.XtraGrid.Views.Grid.RowClickEventHandler(this.gridView1_RowClick_1);
-            // 
-            // btnSaveClose
-            // 
-            this.btnSaveClose.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
-            this.btnSaveClose.Appearance.Options.UseFont = true;
-            this.btnSaveClose.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveClose.Image")));
-            this.btnSaveClose.Location = new System.Drawing.Point(300, 4);
-            this.btnSaveClose.Name = "btnSaveClose";
-            this.btnSaveClose.Size = new System.Drawing.Size(173, 61);
-            this.btnSaveClose.TabIndex = 0;
-            this.btnSaveClose.Text = "Save && Close";
-            this.btnSaveClose.Click += new System.EventHandler(this.btnSaveClose_Click);
             // 
             // gridColumnName
             // 
@@ -116,7 +106,27 @@
             this.gridColumnAttributes.FieldName = "Attributes";
             this.gridColumnAttributes.Name = "gridColumnAttributes";
             this.gridColumnAttributes.Visible = true;
-            this.gridColumnAttributes.VisibleIndex = 1;
+            this.gridColumnAttributes.VisibleIndex = 2;
+            // 
+            // btnSaveClose
+            // 
+            this.btnSaveClose.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            this.btnSaveClose.Appearance.Options.UseFont = true;
+            this.btnSaveClose.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveClose.Image")));
+            this.btnSaveClose.Location = new System.Drawing.Point(300, 4);
+            this.btnSaveClose.Name = "btnSaveClose";
+            this.btnSaveClose.Size = new System.Drawing.Size(173, 61);
+            this.btnSaveClose.TabIndex = 0;
+            this.btnSaveClose.Text = "Save && Close";
+            this.btnSaveClose.Click += new System.EventHandler(this.btnSaveClose_Click);
+            // 
+            // gridColumnNumber
+            // 
+            this.gridColumnNumber.Caption = "Number";
+            this.gridColumnNumber.FieldName = "Number";
+            this.gridColumnNumber.Name = "gridColumnNumber";
+            this.gridColumnNumber.Visible = true;
+            this.gridColumnNumber.VisibleIndex = 1;
             // 
             // PreviewForm
             // 
@@ -147,6 +157,7 @@
         private DevExpress.XtraEditors.SimpleButton btnSaveClose;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnName;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnAttributes;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumnNumber;
 
     }
 }

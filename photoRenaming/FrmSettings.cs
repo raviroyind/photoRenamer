@@ -5,8 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.Data.Linq;
-using DevExpress.Utils.Drawing;
-using DevExpress.XtraBars;
+using DevExpress.Utils.Drawing;using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraPrinting.Native;
@@ -47,15 +46,17 @@ namespace photoRenaming
                     var dInfo = new DirectoryInfo(txtSourcePath.EditValue.ToString());
 
                     var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-                     
-                    FileList.AddRange(fInfo.Select(file => new ImageFile
+
+                    var orderedList = fInfo.OrderBy(x => x.CreationTime).ToList();
+
+                    FileList.AddRange(orderedList.Select(file => new ImageFile
                     {
                         Name = file.Name,
+                        Number = file.Name.Substring(0,file.Name.Length-4),
                         Attributes = file.Attributes,
                         FullPath = file.FullName,
                         Rating = UseRatings ? GetRating(file) : ""
                     }));
-                      
                     SplashScreenManager.CloseForm(false);
 
                     if (FileList.Count > 0)
@@ -357,9 +358,12 @@ namespace photoRenaming
 
                     var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
 
-                    FileList.AddRange(fInfo.Select(file => new ImageFile
+                    var orderedList = fInfo.OrderBy(x => x.CreationTime).ToList();
+
+                    FileList.AddRange(orderedList.Select(file => new ImageFile
                     {
                         Name = file.Name,
+                        Number = file.Name.Substring(0, file.Name.Length - 4),
                         Attributes = file.Attributes,
                         FullPath = file.FullName,
                         Rating = UseRatings ? GetRating(file) : ""
@@ -384,17 +388,20 @@ namespace photoRenaming
             else if (!string.IsNullOrEmpty(Convert.ToString(txtSourcePath.EditValue)))
             {
                 FileList = new List<ImageFile>();
-                  
+
                 var dInfo = new DirectoryInfo(txtSourcePath.EditValue.ToString());
 
                 var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
 
-                FileList.AddRange(fInfo.Select(file => new ImageFile
+                var orderedList = fInfo.OrderBy(x => x.CreationTime).ToList();
+
+                FileList.AddRange(orderedList.Select(file => new ImageFile
                 {
                     Name = file.Name,
+                    Number = Path.GetFileNameWithoutExtension(file.Name),
                     Attributes = file.Attributes,
                     FullPath = file.FullName,
-                    Rating = GetRating(file),
+                    Rating = UseRatings ? GetRating(file) : ""
                 }));
 
                 if (FileList.Count > 0)
@@ -433,9 +440,12 @@ namespace photoRenaming
 
                 var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
 
-                FileList.AddRange(fInfo.Select(file => new ImageFile
+                var orderedList = fInfo.OrderBy(x => x.CreationTime).ToList();
+
+                FileList.AddRange(orderedList.Select(file => new ImageFile
                 {
                     Name = file.Name,
+                    Number = Path.GetFileNameWithoutExtension(file.Name),
                     Attributes = file.Attributes,
                     FullPath = file.FullName,
                     Rating = UseRatings ? GetRating(file) : ""
@@ -495,13 +505,17 @@ namespace photoRenaming
 
                var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
 
-               FileList.AddRange(fInfo.Select(file => new ImageFile
+               var orderedList = fInfo.OrderBy(x => x.CreationTime).ToList();
+
+               FileList.AddRange(orderedList.Select(file => new ImageFile
                {
                    Name = file.Name,
+                   Number = Path.GetFileNameWithoutExtension(file.Name),
                    Attributes = file.Attributes,
                    FullPath = file.FullName,
                    Rating = UseRatings ? GetRating(file) : ""
                }));
+
                SplashScreenManager.CloseForm(false);
                if (FileList.Count > 0)
                {
@@ -542,10 +556,13 @@ namespace photoRenaming
                 var dInfo = new DirectoryInfo(txtSourcePath.EditValue.ToString());
 
                 var fInfo = dInfo.GetFiles("*.jpg", chkIncludeSubFolder.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+               
+                var orderedList = fInfo.OrderBy(x => x.CreationTime).ToList();
 
-                FileList.AddRange(fInfo.Select(file => new ImageFile
+                FileList.AddRange(orderedList.Select(file => new ImageFile
                 {
                     Name = file.Name,
+                    Number = file.Name.Substring(0, file.Name.Length - 4),
                     Attributes = file.Attributes,
                     FullPath = file.FullName,
                     Rating = UseRatings ? GetRating(file) : ""

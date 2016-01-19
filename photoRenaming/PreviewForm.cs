@@ -37,8 +37,8 @@ namespace photoRenaming
 
             if (_useRating)
             {
-                gridViewMain.Columns[1].Caption = "Ratings (Click to Toggle)";
-                gridViewMain.Columns[1].FieldName = "Rating";
+                gridViewMain.Columns[2].Caption = "Ratings (Click to Toggle)";
+                gridViewMain.Columns[2].FieldName = "Rating";
 
                 this.gridColumnAttributes.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
                 this.gridColumnAttributes.AppearanceCell.ForeColor = System.Drawing.Color.Red;
@@ -52,9 +52,8 @@ namespace photoRenaming
                 this.gridColumnAttributes.AppearanceCell.Options.UseFont = true;
                 this.gridColumnAttributes.AppearanceCell.Options.UseForeColor = true;
                 this.gridColumnAttributes.AppearanceCell.Options.UseTextOptions = true;
-
-                gridViewMain.Columns[1].Caption = "Attributes (Click to Toggle)";
-                gridViewMain.Columns[1].FieldName = "Attributes";
+                gridViewMain.Columns[2].Caption = "Attributes (Click to Toggle)";
+                gridViewMain.Columns[2].FieldName = "Attributes";
             }
 
             gridViewMain.OptionsView.ShowAutoFilterRow = false;
