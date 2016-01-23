@@ -16,6 +16,8 @@ using photoRenaming.Core;
 namespace photoRenaming
 {
     public partial class FrmSettings : RibbonForm{
+
+        private const string NamingRule = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z";
         public List<ImageFile> FileList;
         public bool UseRatings { get; set; }
 
@@ -236,14 +238,22 @@ namespace photoRenaming
 
         private void btnProcess_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-              
+            List<string> foldersList=new List<string>();
             if (ValidateForm())
             {
                 List<ImageFile> bucketList = new List<ImageFile>();
 
                 var sequenceArray = txtPlayerSequence.EditValue.ToString().Split(',');
+
+                foreach (var item in sequenceArray)
+                {
+                    if (!foldersList.Contains(item))
+                        foldersList.Add(item);
+                    else 
+                        foldersList.Add(item + "("+ foldersList.Count +")");
+                }
+
                 List<ImageFile> imageSets;
-           
                 if (!UseRatings)
                 {
                     imageSets = FileList.Where(f => f.Attributes.Equals(FileAttributes.ReadOnly | FileAttributes.Archive) || f.Attributes.Equals(FileAttributes.ReadOnly)).ToList();
@@ -263,14 +273,13 @@ namespace photoRenaming
 
                  SplashScreenManager.Default.SetWaitFormDescription("Processing Images...");
                 foreach (var file in FileList)
-                { 
-                    file.ImageSet = sequenceArray[iCount].ToString();
+                {
+                    file.ImageSet = foldersList[iCount].ToString();
 
                     bucketList.Add(file);
 
                     if (UseRatings && !string.IsNullOrEmpty(file.Rating))
                     {
-                         
                         CreateOutput(bucketList, txtDestination.EditValue.ToString());
                         bucketList.Clear();
 
@@ -295,7 +304,7 @@ namespace photoRenaming
                 else
                     System.Diagnostics.Process.Start(txtDestination.EditValue.ToString());
 
-               
+               foldersList.Clear();
                 //FileList.Clear();
             }
             else
@@ -322,18 +331,50 @@ namespace photoRenaming
                 SplashScreenManager.Default.SetWaitFormDescription("Processing "+ file.Name);
                 using (var bmp = new Bitmap(file.FullPath))
                 {
+                    if (file.ImageSet.Contains("("))
+                        file.ImageSet = file.ImageSet.Substring(0, file.ImageSet.LastIndexOf("(", StringComparison.Ordinal));
+
+
                     var finalName = outPath + file.ImageSet;
 
+                    
                     if (txtSuffix.EditValue != null)
                         finalName += txtSuffix.EditValue.ToString();
 
                         finalName += "(" + iCount + ")" + Path.GetExtension(file.FullPath);
+
+                    finalName = CheckAlreadyExists(finalName);
 
                     bmp.Save(finalName);
                     bmp.Dispose();
                     iCount++;
                 }
             }}
+
+        private string CheckAlreadyExists(string finalName)
+        {
+            var returnVal = string.Empty;
+
+            var folders = NamingRule.Split(',');
+
+            if (File.Exists(finalName))
+            {
+                foreach (
+                    var item in
+                        folders.Where(
+                            item =>
+                                !File.Exists(Path.GetFileNameWithoutExtension(finalName) + item +
+                                             Path.GetExtension(finalName))))
+                {
+                    returnVal = finalName.Substring(0,finalName.LastIndexOf("\\", StringComparison.Ordinal)+1) + Path.GetFileNameWithoutExtension(finalName) + item + Path.GetExtension(finalName);
+                    return returnVal;
+                }
+            }
+            else
+                returnVal = finalName;
+
+            return returnVal;
+        }
 
         private void btnBack_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
